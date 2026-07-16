@@ -4,10 +4,10 @@
 
 @section('content')
 
-{{-- ── Welcome Banner + Weather ── --}}
-<div class="row g-4 mb-5">
-    <div class="col-lg-7">
-        <div class="card h-100" style="background:linear-gradient(135deg,var(--primary) 0%,#162038 50%,#1c2a4a 100%);border:none;border-radius:16px;overflow:hidden;position:relative;">
+{{-- ── Welcome Banner ── --}}
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card" style="background:linear-gradient(135deg,var(--primary) 0%,#162038 50%,#1c2a4a 100%);border:none;border-radius:16px;overflow:hidden;position:relative;">
             <div style="position:absolute;top:0;right:0;width:260px;height:100%;background:linear-gradient(135deg,rgba(201,169,110,.1),rgba(201,169,110,.01));border-radius:50% 0 0 50%;transform:translateX(30%);"></div>
             <div class="card-body py-4 px-4 px-md-5 position-relative" style="z-index:1;">
                 <h4 style="color:#fff;font-weight:700;margin-bottom:.35rem;">
@@ -24,41 +24,93 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5">
-        <div class="card h-100" style="background:linear-gradient(135deg,var(--primary) 0%,#162038 50%,#1c2a4a 100%);border:none;border-radius:16px;overflow:hidden;position:relative;" id="weatherCard">
-            @if($weather)
-            <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(201,169,110,.07);border-radius:50%;"></div>
-            <div class="card-body py-4 px-4 position-relative" style="z-index:1;">
-                <div class="d-flex align-items-center justify-content-between mb-2">
+</div>
+
+{{-- ── Weather Card Full Width ── --}}
+@if($weather)
+<div class="row g-4 mb-5">
+    <div class="col-12">
+        <div class="card" style="background:linear-gradient(135deg,var(--primary) 0%,#162038 50%,#1c2a4a 100%);border:none;border-radius:16px;overflow:hidden;position:relative;" id="weatherCard">
+            <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(201,169,110,.06);border-radius:50%;"></div>
+            <div style="position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:rgba(201,169,110,.04);border-radius:50%;"></div>
+            <div class="card-body py-4 px-4 px-md-5 position-relative" style="z-index:1;">
+                <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="{{ $weather['icon_url'] }}" alt="{{ $weather['description'] }}" style="width:48px;height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));">
-                        <div>
-                            <div style="color:#fff;font-size:1.8rem;font-weight:700;line-height:1;">{{ $weather['temp'] }}°C</div>
-                            <div style="color:rgba(255,255,255,.6);font-size:.78rem;">{{ $weather['description'] }}</div>
-                        </div>
+                        <i class="bi bi-cloud-sun-fill" style="color:var(--accent);font-size:1rem;"></i>
+                        <span style="color:rgba(255,255,255,.7);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">Clima en Vivo</span>
                     </div>
-                    <a href="{{ route('panel.weather') }}" class="btn btn-sm btn-outline-secondary border-0" style="color:rgba(255,255,255,.4);font-size:.75rem;" title="Configurar clima">
-                        <i class="bi bi-gear"></i>
+                    <a href="{{ route('panel.weather') }}" class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);font-size:.72rem;border-radius:8px;" title="Configurar clima">
+                        <i class="bi bi-gear me-1"></i>Configurar
                     </a>
                 </div>
-                <div class="d-flex gap-3 flex-wrap" style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:.5rem;">
-                    <span><i class="bi bi-geo-alt me-1" style="color:var(--accent);"></i>{{ $weather['city_name'] }}</span>
-                    <span><i class="bi bi-droplet me-1" style="color:var(--accent);"></i>{{ $weather['humidity'] }}%</span>
-                    <span><i class="bi bi-wind me-1" style="color:var(--accent);"></i>{{ $weather['wind_speed'] }} km/h</span>
+                <div class="d-flex align-items-center gap-4 flex-wrap">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="{{ $weather['icon_url'] }}" alt="{{ $weather['description'] }}" style="width:64px;height:64px;filter:drop-shadow(0 3px 10px rgba(0,0,0,.3));">
+                        <div>
+                            <div style="color:#fff;font-size:2.5rem;font-weight:700;line-height:1;font-family:'Playfair Display',serif;">{{ $weather['temp'] }}°C</div>
+                            <div style="color:rgba(255,255,255,.6);font-size:.85rem;margin-top:2px;">{{ $weather['description'] }}</div>
+                        </div>
+                    </div>
+                    <div style="width:1px;height:40px;background:rgba(255,255,255,.1);margin:0 .5rem;" class="d-none d-md-block"></div>
+                    <div class="d-flex gap-4 flex-wrap" style="font-size:.8rem;">
+                        <div class="text-center">
+                            <div style="color:var(--accent);font-size:1rem;"><i class="bi bi-thermometer-half"></i></div>
+                            <div style="color:rgba(255,255,255,.8);font-weight:600;">{{ $weather['feels_like'] }}°C</div>
+                            <div style="color:rgba(255,255,255,.3);font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;">Sensación</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="color:var(--accent);font-size:1rem;"><i class="bi bi-droplet"></i></div>
+                            <div style="color:rgba(255,255,255,.8);font-weight:600;">{{ $weather['humidity'] }}%</div>
+                            <div style="color:rgba(255,255,255,.3);font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;">Humedad</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="color:var(--accent);font-size:1rem;"><i class="bi bi-wind"></i></div>
+                            <div style="color:rgba(255,255,255,.8);font-weight:600;">{{ $weather['wind_speed'] }} km/h</div>
+                            <div style="color:rgba(255,255,255,.3);font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;">Viento</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="color:var(--accent);font-size:1rem;"><i class="bi bi-speedometer"></i></div>
+                            <div style="color:rgba(255,255,255,.8);font-weight:600;">{{ $weather['pressure'] }} hPa</div>
+                            <div style="color:rgba(255,255,255,.3);font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;">Presión</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="color:var(--accent);font-size:1rem;"><i class="bi bi-eye"></i></div>
+                            <div style="color:rgba(255,255,255,.8);font-weight:600;">{{ $weather['visibility'] }} km</div>
+                            <div style="color:rgba(255,255,255,.3);font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;">Visibilidad</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-4 flex-wrap mt-3" style="font-size:.78rem;color:rgba(255,255,255,.35);">
+                    <span><i class="bi bi-geo-alt me-1" style="color:var(--accent);"></i>{{ $weather['city_name'] }}, {{ $weather['country'] }}</span>
+                    @if(!empty($weather['sunrise']))
+                    <span><i class="bi bi-sunrise me-1" style="color:var(--accent);"></i>Amanecer: {{ $weather['sunrise'] }}</span>
+                    @endif
+                    @if(!empty($weather['sunset']))
+                    <span><i class="bi bi-sunset me-1" style="color:var(--accent);"></i>Atardecer: {{ $weather['sunset'] }}</span>
+                    @endif
+                    <span class="ms-auto"><i class="bi bi-arrow-clockwise me-1"></i>{{ $weather['updated_at'] }}</span>
                 </div>
             </div>
-            @else
-            <div class="card-body py-4 px-4 text-center d-flex flex-column align-items-center justify-content-center">
-                <a href="{{ route('panel.weather') }}" class="text-decoration-none" style="color:rgba(255,255,255,.35);">
-                    <i class="bi bi-cloud-slash fs-3 d-block mb-2" style="opacity:.4;"></i>
-                    <span style="font-size:.82rem;display:block;font-weight:500;">Configurar clima en vivo</span>
-                    <span style="font-size:.7rem;display:block;margin-top:.25rem;color:var(--accent);">API OpenWeather</span>
-                </a>
-            </div>
-            @endif
         </div>
     </div>
 </div>
+@else
+<div class="row g-4 mb-5">
+    <div class="col-12">
+        <div class="card" style="background:linear-gradient(135deg,var(--primary) 0%,#162038 50%,#1c2a4a 100%);border:none;border-radius:16px;overflow:hidden;">
+            <div class="card-body py-4 px-4 text-center d-flex align-items-center justify-content-center gap-3">
+                <a href="{{ route('panel.weather') }}" class="text-decoration-none d-flex align-items-center gap-3" style="color:rgba(255,255,255,.35);">
+                    <i class="bi bi-cloud-slash fs-3" style="opacity:.4;"></i>
+                    <div class="text-start">
+                        <span style="font-size:.85rem;display:block;font-weight:500;">Configurar clima en vivo</span>
+                        <span style="font-size:.7rem;display:block;margin-top:.15rem;color:var(--accent);">Integración con OpenWeather API</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 {{-- ── Stats Row 1: Habitaciones ── --}}
 <div class="section-header">

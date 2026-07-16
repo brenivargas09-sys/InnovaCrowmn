@@ -260,23 +260,112 @@
         @keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
         @keyframes heroLineReveal { to { opacity: 1; transform: scaleX(1); } }
 
-        /* ── Weather Floating ── */
+        /* ── Weather Floating (Hero) ── */
         .weather-float {
             position: absolute; bottom: 5rem; right: 2rem; z-index: 5;
-            background: rgba(0,0,0,.3); backdrop-filter: blur(16px);
-            border: 1px solid rgba(201,169,110,.15); border-radius: 12px;
-            padding: .6rem 1rem; display: flex; align-items: center; gap: .6rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,.3);
+            background: rgba(0,0,0,.4); backdrop-filter: blur(20px);
+            border: 1px solid rgba(201,169,110,.2); border-radius: 16px;
+            padding: .85rem 1.3rem; display: flex; align-items: center; gap: .8rem;
+            box-shadow: 0 12px 35px rgba(0,0,0,.35);
             opacity: 0; transform: translateY(20px);
             animation: heroReveal 1s cubic-bezier(.4,0,.2,1) forwards 1.8s;
             transition: transform .4s ease, box-shadow .4s ease;
         }
-        .weather-float:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,.4); }
-        .weather-float img { width: 32px; height: 32px; filter: drop-shadow(0 1px 4px rgba(0,0,0,.3)); }
-        .weather-float .wf-temp { font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1; }
-        .weather-float .wf-desc { font-size: .65rem; color: rgba(255,255,255,.5); text-transform: capitalize; }
-        .weather-float .wf-detail { font-size: .6rem; color: rgba(255,255,255,.3); display: flex; gap: .5rem; margin-top: .2rem; }
-        .weather-float .wf-detail i { color: var(--accent); font-size: .55rem; }
+        .weather-float:hover { transform: translateY(-3px); box-shadow: 0 16px 45px rgba(0,0,0,.45); }
+        .weather-float img { width: 48px; height: 48px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.3)); }
+        .weather-float .wf-temp { font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1; }
+        .weather-float .wf-desc { font-size: .75rem; color: rgba(255,255,255,.6); text-transform: capitalize; margin-top: 2px; }
+        .weather-float .wf-detail { font-size: .65rem; color: rgba(255,255,255,.35); display: flex; gap: .6rem; margin-top: .3rem; }
+        .weather-float .wf-detail i { color: var(--accent); font-size: .6rem; }
+
+        /* ── Weather Section (Dedicated) ── */
+        .weather-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 40%, var(--primary-medium) 100%);
+            padding: 5rem 0; position: relative; overflow: hidden; color: #fff;
+        }
+        .weather-section::before {
+            content: ''; position: absolute; top: -40%; right: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(201,169,110,.08), transparent 70%); border-radius: 50%;
+        }
+        .weather-section::after {
+            content: ''; position: absolute; bottom: -40%; left: -8%; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(201,169,110,.05), transparent 70%); border-radius: 50%;
+        }
+        .ws-main {
+            display: flex; align-items: center; justify-content: center; gap: 2.5rem;
+            flex-wrap: wrap; position: relative; z-index: 1;
+        }
+        .ws-icon-wrap {
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .ws-icon-bg {
+            width: 140px; height: 140px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,169,110,.12), rgba(201,169,110,.02));
+            display: flex; align-items: center; justify-content: center;
+            animation: weatherPulse 4s ease-in-out infinite;
+        }
+        @keyframes weatherPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,169,110,.1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(201,169,110,.08); }
+        }
+        .ws-icon-bg img { width: 96px; height: 96px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.3)); }
+        .ws-temp-block { text-align: left; }
+        .ws-temp {
+            font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700;
+            line-height: 1; margin-bottom: .25rem;
+            background: linear-gradient(135deg, #fff 30%, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .ws-desc {
+            font-size: 1.15rem; color: rgba(255,255,255,.6); text-transform: capitalize;
+            font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: .5rem;
+        }
+        .ws-city {
+            display: inline-flex; align-items: center; gap: .4rem;
+            font-size: .82rem; color: var(--accent); font-weight: 600; letter-spacing: .5px;
+        }
+        .ws-city i { font-size: .9rem; }
+        .ws-details {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+            margin-top: 2.5rem; position: relative; z-index: 1;
+        }
+        .ws-detail-card {
+            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06);
+            border-radius: 14px; padding: 1.2rem 1rem; text-align: center;
+            transition: all .4s cubic-bezier(.4,0,.2,1);
+        }
+        .ws-detail-card:hover {
+            background: rgba(201,169,110,.08); border-color: rgba(201,169,110,.15);
+            transform: translateY(-4px);
+        }
+        .ws-detail-card i {
+            font-size: 1.3rem; color: var(--accent); margin-bottom: .6rem; display: block;
+        }
+        .ws-detail-card .wsd-val {
+            font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
+            color: #fff; line-height: 1.1;
+        }
+        .ws-detail-card .wsd-lbl {
+            font-size: .7rem; color: rgba(255,255,255,.35); text-transform: uppercase;
+            letter-spacing: 1px; margin-top: .3rem; font-weight: 600;
+        }
+        .ws-updated {
+            text-align: center; margin-top: 2rem; font-size: .75rem;
+            color: rgba(255,255,255,.2); position: relative; z-index: 1;
+        }
+        .ws-updated i { color: var(--accent); margin-right: .3rem; }
+        @media (max-width: 767.98px) {
+            .ws-temp { font-size: 3rem; }
+            .ws-icon-bg { width: 110px; height: 110px; }
+            .ws-icon-bg img { width: 72px; height: 72px; }
+            .ws-main { gap: 1.5rem; }
+            .ws-details { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 575.98px) {
+            .ws-details { grid-template-columns: 1fr 1fr; gap: .75rem; }
+            .weather-section { padding: 3.5rem 0; }
+        }
 
         /* ══════════════════════════════════════════
            SECTIONS
@@ -798,6 +887,81 @@
             </div>
         </div>
     </section>
+
+    {{-- WEATHER SECTION --}}
+    @if(!empty($weather))
+    <section class="weather-section">
+        <div class="container">
+            <div class="sec-header reveal-up" style="margin-bottom:3rem;">
+                <div class="sec-overline">Clima en Vivo</div>
+                <h2 style="color:#fff;">Condiciones Actuales</h2>
+                <div class="line"></div>
+                <p style="color:rgba(255,255,255,.5);">Información del clima en tiempo real para tu visita</p>
+            </div>
+            <div class="ws-main reveal-up">
+                <div class="ws-icon-wrap">
+                    <div class="ws-icon-bg">
+                        <img src="{{ $weather['icon_url'] }}" alt="{{ $weather['description'] }}">
+                    </div>
+                </div>
+                <div class="ws-temp-block">
+                    <div class="ws-temp">{{ $weather['temp'] }}°C</div>
+                    <div class="ws-desc">{{ $weather['description'] }}</div>
+                    <div class="ws-city"><i class="bi bi-geo-alt-fill"></i> {{ $weather['city_name'] }}, {{ $weather['country'] }}</div>
+                </div>
+            </div>
+            <div class="ws-details reveal-up d2">
+                <div class="ws-detail-card">
+                    <i class="bi bi-thermometer-half"></i>
+                    <div class="wsd-val">{{ $weather['feels_like'] }}°C</div>
+                    <div class="wsd-lbl">Sensación</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-droplet-fill"></i>
+                    <div class="wsd-val">{{ $weather['humidity'] }}%</div>
+                    <div class="wsd-lbl">Humedad</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-wind"></i>
+                    <div class="wsd-val">{{ $weather['wind_speed'] }}<small style="font-size:.6em;">km/h</small></div>
+                    <div class="wsd-lbl">Viento</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-speedometer"></i>
+                    <div class="wsd-val">{{ $weather['pressure'] }}<small style="font-size:.6em;">hPa</small></div>
+                    <div class="wsd-lbl">Presión</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-cloud-fill"></i>
+                    <div class="wsd-val">{{ $weather['clouds'] }}%</div>
+                    <div class="wsd-lbl">Nubes</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-eye-fill"></i>
+                    <div class="wsd-val">{{ $weather['visibility'] }}<small style="font-size:.6em;">km</small></div>
+                    <div class="wsd-lbl">Visibilidad</div>
+                </div>
+            </div>
+            @if(!empty($weather['sunrise']) || !empty($weather['sunset']))
+            <div class="ws-details reveal-up d3" style="grid-template-columns:repeat(2,1fr);max-width:400px;margin:1.5rem auto 0;">
+                <div class="ws-detail-card">
+                    <i class="bi bi-sunrise-fill"></i>
+                    <div class="wsd-val" style="font-size:1.1rem;">{{ $weather['sunrise'] }}</div>
+                    <div class="wsd-lbl">Amanecer</div>
+                </div>
+                <div class="ws-detail-card">
+                    <i class="bi bi-sunset-fill"></i>
+                    <div class="wsd-val" style="font-size:1.1rem;">{{ $weather['sunset'] }}</div>
+                    <div class="wsd-lbl">Atardecer</div>
+                </div>
+            </div>
+            @endif
+            <div class="ws-updated reveal-up d4">
+                <i class="bi bi-arrow-clockwise"></i> Actualizado: {{ $weather['updated_at'] }}
+            </div>
+        </div>
+    </section>
+    @endif
 
     {{-- ROOMS --}}
     <section class="section-py section-cream" id="habitaciones">
