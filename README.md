@@ -131,6 +131,7 @@ InnovaCrowmn/
 ├── app/
 │   ├── Http/Controllers/    # Controladores
 │   ├── Http/Middleware/      # Middleware de seguridad
+│   ├── Http/Requests/       # Form Requests (validación)
 │   ├── Models/              # Modelos Eloquent
 │   └── Services/            # Servicios externos
 ├── bootstrap/
@@ -150,6 +151,68 @@ InnovaCrowmn/
 ├── .env.example
 └── README.md
 ```
+
+---
+
+# Patrones de diseño implementados
+
+## Form Request Pattern
+
+El proyecto utiliza el patrón **Form Request** de Laravel para centralizar la validación de datos en clases dedicadas. Cada entidad del sistema tiene sus propias clases de validación en `app/Http/Requests/`.
+
+### Beneficios
+
+- Validación reutilizable entre los métodos `store()` y `update()` de cada controlador.
+- Controladores más limpios, enfocados únicamente en lógica de negocio.
+- Reglas de validación centralizadas en un solo lugar, lo que facilita el mantenimiento.
+- Preparado para implementar autorización a nivel de campo mediante el método `authorize()`.
+
+### Archivos creados
+
+| Entidad | Store | Update |
+|---|---|---|
+| Usuario | `StoreUserRequest` | `UpdateUserRequest` |
+| Cliente | `StoreClientRequest` | `UpdateClientRequest` |
+| Habitación | `StoreRoomRequest` | `UpdateRoomRequest` |
+| Tipo de Habitación | `RoomTypeRequest` | `RoomTypeRequest` (reutilizable) |
+| Reservación | `StoreReservationRequest` | `UpdateReservationRequest` |
+| Pago | `StorePaymentRequest` | `UpdatePaymentRequest` |
+| Servicio | `ServiceRequest` | `ServiceRequest` (reutilizable) |
+| Panel Hero | `HeroUpdateRequest` | — |
+| Panel Info | `InfoUpdateRequest` | — |
+| Panel Galería | `GalleryUploadRequest` | — |
+| Panel Promociones | `PromotionStoreRequest` | `PromotionUpdateRequest` |
+| Panel Servicios | `PanelServiceRequest` | `PanelServiceRequest` (reutilizable) |
+| Panel Tipos Habitación | `PanelRoomTypeRequest` | `PanelRoomTypeRequest` (reutilizable) |
+
+### Ejemplo de uso
+
+**Antes (validación inline en el controlador):**
+
+```php
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'username' => 'required|string|max:50|unique:users',
+        'email' => 'required|email|max:100|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+        'role' => 'required|in:admin,recepcionista,cliente',
+    ]);
+    // ...
+}
+```
+
+**Después (con Form Request):**
+
+```php
+public function store(StoreUserRequest $request)
+{
+    $validated = $request->validated();
+    // ...
+}
+```
+
+Las reglas de validación se definen una sola vez en `StoreUserRequest` y se reutilizan automáticamente. Si se necesita modificar una regla, solo se cambia en el archivo correspondiente de `app/Http/Requests/`.
 
 ---
 
