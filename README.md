@@ -1,53 +1,53 @@
 # InnovaCrown
 
-## Version
+## Versión
 
 *v1.0*
 
 ---
 
-# Descripcion
+# Descripción
 
-InnovaCrown es un sistema web disenado para la gestion y administracion de un hotel, cuyo proposito es facilitar el control de clientes, habitaciones y reservaciones mediante una plataforma centralizada.
+InnovaCrown es un sistema web diseñado para la gestión y administración de un hotel, cuyo propósito es facilitar el control de clientes, habitaciones y reservaciones mediante una plataforma centralizada.
 
-Esta version (v1.0) representa la primera entrega funcional del proyecto. Aunque ya cuenta con la estructura principal del sistema y la integracion de diversos componentes, el desarrollo continua y en futuras versiones se incorporaran nuevas funcionalidades, mejoras de rendimiento y optimizaciones generales.
+Esta versión (v1.0) representa la primera entrega funcional del proyecto. Aunque ya cuenta con la estructura principal del sistema y la integración de diversos componentes, el desarrollo continúa y en futuras versiones se incorporarán nuevas funcionalidades, mejoras de rendimiento y optimizaciones generales.
 
 ---
 
 # Objetivo General
 
-Desarrollar un sistema web que permita administrar de manera eficiente la informacion del hotel, optimizando los procesos administrativos y mejorando el control de las operaciones.
+Desarrollar un sistema web que permita administrar de manera eficiente la información del hotel, optimizando los procesos administrativos y mejorando el control de las operaciones.
 
 ---
 
-# Objetivos Especificos
+# Objetivos Específicos
 
-- Administrar la informacion de los clientes.
+- Administrar la información de los clientes.
 - Gestionar las habitaciones del hotel.
 - Registrar y administrar reservaciones.
-- Implementar una API para la comunicacion entre componentes.
-- Integrar Web Services para el intercambio de informacion.
-- Aplicar mecanismos basicos de seguridad.
+- Implementar una API para la comunicación entre componentes.
+- Integrar Web Services para el intercambio de información.
+- Aplicar mecanismos básicos de seguridad.
 - Mantener una estructura organizada y escalable para futuras versiones.
 
 ---
 
-# Caracteristicas
+# Características
 
 - Sistema web.
-- Arquitectura organizada por modulos.
+- Arquitectura organizada por módulos.
 - API integrada.
 - Web Services implementados.
 - Base de datos relacional.
-- Gestion de usuarios.
-- Gestion de clientes.
-- Gestion de habitaciones.
-- Gestion de reservaciones.
-- Diseno pensado para facilitar futuras ampliaciones.
+- Gestión de usuarios.
+- Gestión de clientes.
+- Gestión de habitaciones.
+- Gestión de reservaciones.
+- Diseño pensado para facilitar futuras ampliaciones.
 
 ---
 
-# Tecnologias utilizadas
+# Tecnologías utilizadas
 
 - HTML5
 - CSS3
@@ -73,7 +73,7 @@ Desarrollar un sistema web que permita administrar de manera eficiente la inform
 
 ---
 
-# Instalacion
+# Instalación
 
 ## Clonar el repositorio
 
@@ -103,7 +103,7 @@ php artisan key:generate
 ## Configurar la base de datos
 
 - Crear una base de datos en MySQL llamada `innovacrown`.
-- Configurar las credenciales de conexion en el archivo `.env`.
+- Configurar las credenciales de conexión en el archivo `.env`.
 
 ## Ejecutar migraciones y datos de prueba
 
@@ -138,7 +138,7 @@ InnovaCrowmn/
 ├── database/
 │   ├── migrations/          # Migraciones de la BD
 │   └── seeders/             # Seeders de datos iniciales
-├── public/                  # Archivos publicos
+├── public/                  # Archivos públicos
 ├── resources/
 │   └── views/
 │       ├── auth/            # Vistas de login y registro
@@ -146,7 +146,7 @@ InnovaCrowmn/
 │       ├── layouts/         # Layout principal
 │       └── welcome.blade.php
 ├── routes/
-│   └── web.php              # Rutas de la aplicacion
+│   └── web.php              # Rutas de la aplicación
 ├── .env.example
 └── README.md
 ```
@@ -155,39 +155,39 @@ InnovaCrowmn/
 
 # Estado del proyecto
 
-## Version actual
+## Versión actual
 
 *v1.0*
 
-El proyecto se encuentra en su primera version funcional.
+El proyecto se encuentra en su primera versión funcional.
 
-Actualmente dispone de la estructura principal del sistema, integracion de la API, Web Services y mecanismos basicos de seguridad.
+Actualmente dispone de la estructura principal del sistema, integración de la API, Web Services y mecanismos básicos de seguridad.
 
-Algunos modulos administrativos aun se encuentran en desarrollo y seran completados en futuras versiones.
+Algunos módulos administrativos aún se encuentran en desarrollo y serán completados en futuras versiones.
 
 ---
 
-# Proximas versiones
+# Próximas versiones
 
 Entre las mejoras planificadas se encuentran:
 
-- Finalizacion de los modulos administrativos.
-- Implementacion completa de todas las funcionalidades de gestion.
-- Optimizacion del rendimiento.
+- Finalización de los módulos administrativos.
+- Implementación completa de todas las funcionalidades de gestión.
+- Optimización del rendimiento.
 - Mejoras en la interfaz de usuario.
-- Sistema de recuperacion de contrasena.
+- Sistema de recuperación de contraseña.
 - Nuevos reportes administrativos.
 - Validaciones adicionales.
 - Mejoras de seguridad.
-- Correccion de errores encontrados durante las pruebas.
-- Optimizacion del codigo.
-- Incorporacion de nuevas funcionalidades segun los requerimientos del hotel.
+- Corrección de errores encontrados durante las pruebas.
+- Optimización del código.
+- Incorporación de nuevas funcionalidades según los requerimientos del hotel.
 
 ---
 
 # Contribuciones
 
-Este proyecto continua en desarrollo. Las futuras versiones estaran enfocadas en mejorar la funcionalidad, seguridad, estabilidad y experiencia de usuario.
+Este proyecto continúa en desarrollo. Las futuras versiones estarán enfocadas en mejorar la funcionalidad, seguridad, estabilidad y experiencia de usuario.
 
 ---
 
@@ -195,16 +195,16 @@ Este proyecto continua en desarrollo. Las futuras versiones estaran enfocadas en
 
 - Breni Elizabeth Vargas
 - Flor de Guadalupe Cruz
-- Ruth Elizabeth Jimenez
+- Ruth Elizabeth Jiménez
 
-Ingenieria en Desarrollo y Gestion de Software.
+Ingeniería en Desarrollo y Gestión de Software.
 
-Universidad Tecnologica de la Selva.
+Universidad Tecnológica de la Selva.
 
 ---
 
 # Licencia
 
-Proyecto desarrollado con fines academicos.
+Proyecto desarrollado con fines académicos.
 
 Todos los derechos reservados 2026.
