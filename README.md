@@ -1,169 +1,140 @@
-# InnovaCrown - Sistema de Gestion Hotelera v1.0
+# InnovaCrown
 
-Sistema web de gestion hotelera con pagina publica de presentacion y panel administrativo. Proyecto en desarrollo continuo, esta version 1.0 incluye la estructura base y funcionalidades principales.
+## Version
 
-## Version actual: 1.0
+*v1.0*
 
-**Fecha:** Julio 2026
+---
 
-Esta primera version incluye:
-- Pagina publica del hotel con diseno responsive
-- Panel administrativo con gestion basica de modulos
-- Integracion con API de OpenWeather para clima en tiempo real
-- Sistema de autenticacion con 3 roles de usuario
+# Descripcion
 
-### Funcionalidades planificadas para versiones futuras
-- Modulo de facturacion electronica
-- Integracion con pasarelas de pago
-- Sistema de notificaciones por correo y SMS
-- App movil para clientes
-- Reportes avanzados con exportacion a PDF y Excel
-- Modulo de mantenimiento preventivo de habitaciones
+InnovaCrown es un sistema web disenado para la gestion y administracion de un hotel, cuyo proposito es facilitar el control de clientes, habitaciones y reservaciones mediante una plataforma centralizada.
 
-## Tecnologias Utilizadas
+Esta version (v1.0) representa la primera entrega funcional del proyecto. Aunque ya cuenta con la estructura principal del sistema y la integracion de diversos componentes, el desarrollo continua y en futuras versiones se incorporaran nuevas funcionalidades, mejoras de rendimiento y optimizaciones generales.
 
-| Componente | Tecnologia |
-|---|---|
-| Backend | PHP 8.2+ / Laravel 12 |
-| Frontend | HTML5 / CSS3 / Bootstrap 5.3.3 |
-| Base de datos | MySQL 8.x |
-| API Externa | OpenWeather API (clima en tiempo real) |
-| Servidor local | XAMPP (Apache + MySQL) |
-| Fuentes | Google Fonts (Playfair Display + Inter) |
-| Iconos | Bootstrap Icons 1.11.3 |
+---
 
-## Funcionalidades de la version 1.0
+# Objetivo General
 
-### Pagina Publica
-- Hero con imagen de fondo y efecto parallax
-- Seccion de servicios y habitaciones del hotel
-- Galeria de imagenes
-- Promociones activas
-- Widget de clima en tiempo real (OpenWeather API)
-- Informacion del hotel y contacto
-- Diseno responsive
+Desarrollar un sistema web que permita administrar de manera eficiente la informacion del hotel, optimizando los procesos administrativos y mejorando el control de las operaciones.
 
-### Panel de Administracion
-- Dashboard con estadisticas generales y widget de clima
-- Gestion de Usuarios (CRUD) con busqueda y filtros
-- Gestion de Clientes (CRUD) con busqueda
-- Gestion de Habitaciones (CRUD) con busqueda y filtros por estado, piso y tipo
-- Gestion de Tipos de Habitacion (CRUD) con busqueda
-- Gestion de Reservaciones (CRUD) con busqueda y filtro por estado
-- Gestion de Pagos (CRUD) con busqueda y filtro por metodo
-- Gestion de Servicios (CRUD) con busqueda
-- Panel de configuracion (hero, informacion, galeria, promociones)
-- Reportes basicos de habitaciones, ingresos y reservaciones
-- Check-in / Check-out de huéspedes
-- Historial de actividad
+---
 
-### Roles de Usuario
-| Rol | Acceso |
-|---|---|
-| Admin | Panel completo + Configuracion + Usuarios + Clima |
-| Recepcionista | Habitaciones, Clientes, Reservaciones, Pagos, Servicios, Check-in/out, Reportes |
-| Cliente | Dashboard personal + Mis Reservaciones |
+# Objetivos Especificos
 
-## Usuarios de Prueba
+- Administrar la informacion de los clientes.
+- Gestionar las habitaciones del hotel.
+- Registrar y administrar reservaciones.
+- Implementar una API para la comunicacion entre componentes.
+- Integrar Web Services para el intercambio de informacion.
+- Aplicar mecanismos basicos de seguridad.
+- Mantener una estructura organizada y escalable para futuras versiones.
 
-| Usuario | Contrasena | Rol |
-|---|---|---|
-| admin@innovacrown.com | password | Administrador |
-| recepcion@innovacrown.com | password | Recepcionista |
-| cliente1@email.com | password | Cliente |
-| cliente2@email.com | password | Cliente |
+---
 
-## Requisitos
+# Caracteristicas
 
-- PHP 8.2 o superior
-- MySQL 8.x
+- Sistema web.
+- Arquitectura organizada por modulos.
+- API integrada.
+- Web Services implementados.
+- Base de datos relacional.
+- Gestion de usuarios.
+- Gestion de clientes.
+- Gestion de habitaciones.
+- Gestion de reservaciones.
+- Diseno pensado para facilitar futuras ampliaciones.
+
+---
+
+# Tecnologias utilizadas
+
+- HTML5
+- CSS3
+- JavaScript
+- Bootstrap
+- PHP
+- Laravel 12
+- MySQL
+- API REST
+- Web Services
+- Git
+- GitHub
+
+---
+
+# Requisitos
+
+- PHP 8.0 o superior
+- MySQL
 - Composer
-- XAMPP (o cualquier servidor Apache + MySQL)
-- Habilitar extensiones PHP: `openssl`, `pdo`, `mbstring`, `tokenizer`, `xml`, `curl`, `gd`
+- Apache (XAMPP, WAMP o Laragon)
+- Navegador web actualizado
 
-## Instalacion
+---
 
-### 1. Clonar el repositorio
+# Instalacion
+
+## Clonar el repositorio
 
 ```bash
 git clone https://github.com/brenivargas09-sys/InnovaCrowmn.git
+```
+
+## Acceder al proyecto
+
+```bash
 cd InnovaCrowmn
 ```
 
-### 2. Instalar dependencias
+## Instalar dependencias
 
 ```bash
 composer install
 ```
 
-### 3. Configurar el entorno
+## Configurar el entorno
 
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-Editar el archivo `.env` con los datos de tu base de datos:
+## Configurar la base de datos
 
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=innovacrown
-DB_USERNAME=root
-DB_PASSWORD=
-```
+- Crear una base de datos en MySQL llamada `innovacrown`.
+- Configurar las credenciales de conexion en el archivo `.env`.
 
-### 4. Crear la base de datos
-
-Abrir phpMyAdmin y crear una base de datos llamada `innovacrown` con cotejamiento `utf8mb4_unicode_ci`.
-
-### 5. Ejecutar migraciones y seeders
+## Ejecutar migraciones y datos de prueba
 
 ```bash
 php artisan migrate
 php artisan db:seed
 ```
 
-Esto creara las tablas y los usuarios de prueba.
-
-### 6. Crear enlace de almacenamiento
-
-```bash
-php artisan storage:link
-```
-
-### 7. Iniciar el servidor
+## Iniciar el servidor
 
 ```bash
 php artisan serve
 ```
 
-El sistema estara disponible en: `http://localhost:8000`
+Abrir en el navegador: `http://localhost:8000`
 
-Si usa XAMPP, acceda directamente en: `http://localhost/InnovaCrown/public/`
+Si se utiliza XAMPP, acceder directamente a: `http://localhost/InnovaCrown/public/`
 
-## API del Clima (OpenWeather)
+---
 
-Esta version integra la API de OpenWeather para mostrar el clima en tiempo real.
-
-1. Obtener una API Key gratuita en [https://openweathermap.org/api](https://openweathermap.org/api)
-2. Agregar la clave en el archivo `.env`:
-   ```
-   OPENWEATHER_API_KEY=tu_api_key_aqui
-   ```
-3. Configurar la ubicacion del hotel en Panel de Administracion > Clima
-
-La informacion del clima se actualiza cada 30 minutos.
-
-## Estructura del Proyecto
+# Estructura del proyecto
 
 ```
 InnovaCrowmn/
 ├── app/
 │   ├── Http/Controllers/    # Controladores
+│   ├── Http/Middleware/      # Middleware de seguridad
 │   ├── Models/              # Modelos Eloquent
-│   └── Services/            # Servicios
+│   └── Services/            # Servicios externos
+├── bootstrap/
+├── config/
 ├── database/
 │   ├── migrations/          # Migraciones de la BD
 │   └── seeders/             # Seeders de datos iniciales
@@ -176,26 +147,64 @@ InnovaCrowmn/
 │       └── welcome.blade.php
 ├── routes/
 │   └── web.php              # Rutas de la aplicacion
-└── .env.example             # Plantilla de configuracion
+├── .env.example
+└── README.md
 ```
 
-## Seguridad implementada en v1.0
+---
 
-- Autenticacion con hash de contrasenas (bcrypt)
-- Proteccion CSRF en formularios
-- Rate limiting en intentos de login
-- Middleware de autorizacion por rol
-- Sanitizacion de entradas
+# Estado del proyecto
 
-## Proximo desarrollo (v2.0)
+## Version actual
 
-- [ ] Facturacion electronica
-- [ ] Pasarela de pagos en linea
-- [ ] Notificaciones por correo
-- [ ] Reportes con exportacion a PDF
-- [ ] App movil para clientes
-- [ ] Mantenimiento preventivo de habitaciones
+*v1.0*
 
-## Licencia
+El proyecto se encuentra en su primera version funcional.
 
-Proyecto academico - InnovaCrown Hotel & Resort
+Actualmente dispone de la estructura principal del sistema, integracion de la API, Web Services y mecanismos basicos de seguridad.
+
+Algunos modulos administrativos aun se encuentran en desarrollo y seran completados en futuras versiones.
+
+---
+
+# Proximas versiones
+
+Entre las mejoras planificadas se encuentran:
+
+- Finalizacion de los modulos administrativos.
+- Implementacion completa de todas las funcionalidades de gestion.
+- Optimizacion del rendimiento.
+- Mejoras en la interfaz de usuario.
+- Sistema de recuperacion de contrasena.
+- Nuevos reportes administrativos.
+- Validaciones adicionales.
+- Mejoras de seguridad.
+- Correccion de errores encontrados durante las pruebas.
+- Optimizacion del codigo.
+- Incorporacion de nuevas funcionalidades segun los requerimientos del hotel.
+
+---
+
+# Contribuciones
+
+Este proyecto continua en desarrollo. Las futuras versiones estaran enfocadas en mejorar la funcionalidad, seguridad, estabilidad y experiencia de usuario.
+
+---
+
+# Autores
+
+- Breni Elizabeth Vargas
+- Flor de Guadalupe Cruz
+- Ruth Elizabeth Jimenez
+
+Ingenieria en Desarrollo y Gestion de Software.
+
+Universidad Tecnologica de la Selva.
+
+---
+
+# Licencia
+
+Proyecto desarrollado con fines academicos.
+
+Todos los derechos reservados 2026.
