@@ -8,6 +8,13 @@ use App\Models\SiteSetting;
 use App\Models\Promotion;
 use App\Models\RoomType;
 use App\Models\Service;
+use App\Http\Requests\HeroUpdateRequest;
+use App\Http\Requests\InfoUpdateRequest;
+use App\Http\Requests\GalleryUploadRequest;
+use App\Http\Requests\PromotionStoreRequest;
+use App\Http\Requests\PromotionUpdateRequest;
+use App\Http\Requests\PanelServiceRequest;
+use App\Http\Requests\PanelRoomTypeRequest;
 
 class PanelController extends Controller
 {
@@ -28,13 +35,9 @@ class PanelController extends Controller
         return view('panel.hero', compact('settings'));
     }
 
-    public function heroUpdate(Request $request)
+    public function heroUpdate(HeroUpdateRequest $request)
     {
-        $validated = $request->validate([
-            'hero_title' => 'nullable|string|max:200',
-            'hero_subtitle' => 'nullable|string|max:200',
-            'hero_description' => 'nullable|string|max:1000',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('hero_image')) {
             $old = SiteSetting::get('hero_image');
@@ -55,12 +58,9 @@ class PanelController extends Controller
         return view('panel.gallery', compact('images'));
     }
 
-    public function galleryUpload(Request $request)
+    public function galleryUpload(GalleryUploadRequest $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'title' => 'nullable|string|max:100',
-        ]);
+        $request->validated();
 
         $file = $request->file('image');
         $filename = 'gallery_' . time() . '.' . $file->getClientOriginalExtension();
@@ -92,31 +92,9 @@ class PanelController extends Controller
         return view('panel.info', compact('settings'));
     }
 
-    public function infoUpdate(Request $request)
+    public function infoUpdate(InfoUpdateRequest $request)
     {
-        $validated = $request->validate([
-            'hotel_name' => 'nullable|string|max:200',
-            'hotel_subtitle' => 'nullable|string|max:200',
-            'about_text' => 'nullable|string|max:3000',
-            'mission' => 'nullable|string|max:1000',
-            'vision' => 'nullable|string|max:1000',
-            'values' => 'nullable|string|max:1000',
-            'contact_address' => 'nullable|string|max:300',
-            'contact_phone' => 'nullable|string|max:50',
-            'contact_phone2' => 'nullable|string|max:50',
-            'contact_email' => 'nullable|string|max:150',
-            'contact_email2' => 'nullable|string|max:150',
-            'schedule_weekdays' => 'nullable|string|max:100',
-            'schedule_weekends' => 'nullable|string|max:100',
-            'social_facebook' => 'nullable|string|max:300',
-            'social_instagram' => 'nullable|string|max:300',
-            'social_twitter' => 'nullable|string|max:300',
-            'social_whatsapp' => 'nullable|string|max:300',
-            'footer_text' => 'nullable|string|max:500',
-            'map_latitude' => 'nullable|numeric|between:-90,90',
-            'map_longitude' => 'nullable|numeric|between:-180,180',
-            'map_zoom' => 'nullable|integer|min:1|max:21',
-        ]);
+        $validated = $request->validated();
 
         SiteSetting::setMany($validated);
         return redirect()->route('panel.info')->with('success', 'Información del hotel actualizada.');
@@ -133,17 +111,9 @@ class PanelController extends Controller
         return view('panel.promotion-form');
     }
 
-    public function promotionStore(Request $request)
+    public function promotionStore(PromotionStoreRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:150',
-            'description' => 'nullable|string|max:1000',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'link' => 'nullable|string|max:255',
-            'sort_order' => 'nullable|integer|min:0',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('promotions', 'public');
@@ -158,18 +128,9 @@ class PanelController extends Controller
         return view('panel.promotion-form', compact('promotion'));
     }
 
-    public function promotionUpdate(Request $request, Promotion $promotion)
+    public function promotionUpdate(PromotionUpdateRequest $request, Promotion $promotion)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:150',
-            'description' => 'nullable|string|max:1000',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'link' => 'nullable|string|max:255',
-            'sort_order' => 'nullable|integer|min:0',
-            'status' => 'required|in:activo,inactivo',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             if ($promotion->image && Storage::disk('public')->exists($promotion->image)) {
@@ -197,26 +158,17 @@ class PanelController extends Controller
         return view('panel.services-manage', compact('services'));
     }
 
-    public function serviceStore(Request $request)
+    public function serviceStore(PanelServiceRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'description' => 'nullable|string|max:500',
-            'price' => 'required|numeric|min:0',
-        ]);
+        $validated = $request->validated();
         $validated['status'] = 'activo';
         Service::create($validated);
         return redirect()->route('panel.services')->with('success', 'Servicio creado.');
     }
 
-    public function serviceUpdate(Request $request, Service $service)
+    public function serviceUpdate(PanelServiceRequest $request, Service $service)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'description' => 'nullable|string|max:500',
-            'price' => 'required|numeric|min:0',
-            'status' => 'required|in:activo,inactivo',
-        ]);
+        $validated = $request->validated();
         $service->update($validated);
         return redirect()->route('panel.services')->with('success', 'Servicio actualizado.');
     }
@@ -233,15 +185,9 @@ class PanelController extends Controller
         return view('panel.rooms-manage', compact('roomTypes'));
     }
 
-    public function roomTypeStore(Request $request)
+    public function roomTypeStore(PanelRoomTypeRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string|max:500',
-            'price_per_night' => 'required|numeric|min:0',
-            'capacity' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('rooms', 'public');
@@ -251,15 +197,9 @@ class PanelController extends Controller
         return redirect()->route('panel.rooms')->with('success', 'Tipo de habitación creado.');
     }
 
-    public function roomTypeUpdate(Request $request, RoomType $roomType)
+    public function roomTypeUpdate(PanelRoomTypeRequest $request, RoomType $roomType)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string|max:500',
-            'price_per_night' => 'required|numeric|min:0',
-            'capacity' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             if ($roomType->image && Storage::disk('public')->exists($roomType->image)) {

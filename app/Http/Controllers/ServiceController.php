@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -29,14 +30,9 @@ class ServiceController extends Controller
         return view('services.create');
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'status' => 'required|in:activo,inactivo',
-        ]);
+        $validated = $request->validated();
 
         Service::create($validated);
         return redirect()->route('services.index')->with('success', 'Servicio creado exitosamente.');
@@ -47,14 +43,9 @@ class ServiceController extends Controller
         return view('services.edit', compact('service'));
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'status' => 'required|in:activo,inactivo',
-        ]);
+        $validated = $request->validated();
 
         $service->update($validated);
         return redirect()->route('services.index')->with('success', 'Servicio actualizado.');

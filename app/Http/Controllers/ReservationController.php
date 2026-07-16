@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Reservation;
 use App\Models\Client;
 use App\Models\Room;
@@ -42,15 +44,9 @@ class ReservationController extends Controller
         return view('reservations.create', compact('clients', 'availableRooms', 'roomTypes'));
     }
 
-    public function store(Request $request)
+    public function store(StoreReservationRequest $request)
     {
-        $validated = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'room_id' => 'required|exists:rooms,id',
-            'check_in_date' => 'required|date|after_or_equal:today',
-            'check_out_date' => 'required|date|after:check_in_date',
-            'notes' => 'nullable|string|max:500',
-        ]);
+        $validated = $request->validated();
 
         $room = Room::with('roomType')->findOrFail($validated['room_id']);
         $nights = \Carbon\Carbon::parse($validated['check_in_date'])->diffInDays($validated['check_out_date']);
@@ -90,16 +86,9 @@ class ReservationController extends Controller
         return view('reservations.edit', compact('reservation', 'clients', 'availableRooms', 'roomTypes'));
     }
 
-    public function update(Request $request, Reservation $reservation)
+    public function update(UpdateReservationRequest $request, Reservation $reservation)
     {
-        $validated = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'room_id' => 'required|exists:rooms,id',
-            'check_in_date' => 'required|date',
-            'check_out_date' => 'required|date|after:check_in_date',
-            'status' => 'required|in:pendiente,confirmada,cancelada,completada',
-            'notes' => 'nullable|string|max:500',
-        ]);
+        $validated = $request->validated();
 
         $oldStatus = $reservation->status;
         $oldRoomId = $reservation->room_id;

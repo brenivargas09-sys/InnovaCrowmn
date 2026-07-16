@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RoomType;
+use App\Http\Requests\RoomTypeRequest;
 
 class RoomTypeController extends Controller
 {
@@ -25,15 +26,9 @@ class RoomTypeController extends Controller
         return view('room-types.create');
     }
 
-    public function store(Request $request)
+    public function store(RoomTypeRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string',
-            'price_per_night' => 'required|numeric|min:0',
-            'capacity' => 'required|integer|min:1',
-            'image' => 'nullable|string|max:100',
-        ]);
+        $validated = $request->validated();
 
         RoomType::create($validated);
         return redirect()->route('room-types.index')->with('success', 'Tipo de habitación creado.');
@@ -50,15 +45,9 @@ class RoomTypeController extends Controller
         return view('room-types.edit', compact('roomType'));
     }
 
-    public function update(Request $request, RoomType $roomType)
+    public function update(RoomTypeRequest $request, RoomType $roomType)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string',
-            'price_per_night' => 'required|numeric|min:0',
-            'capacity' => 'required|integer|min:1',
-            'image' => 'nullable|string|max:100',
-        ]);
+        $validated = $request->validated();
 
         $roomType->update($validated);
         return redirect()->route('room-types.index')->with('success', 'Tipo de habitación actualizado.');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\User;
@@ -32,21 +34,9 @@ class ClientController extends Controller
         return view('clients.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:200',
-            'city' => 'nullable|string|max:50',
-            'id_type' => 'required|in:INE,Pasaporte,Licencia,Otro',
-            'id_number' => 'required|string|max:30',
-            'nationality' => 'nullable|string|max:50',
-            'email' => 'required|email|unique:users',
-            'username' => 'required|string|max:50|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
             'username' => $validated['username'],
@@ -81,18 +71,9 @@ class ClientController extends Controller
         return view('clients.edit', compact('client'));
     }
 
-    public function update(Request $request, Client $client)
+    public function update(UpdateClientRequest $request, Client $client)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:200',
-            'city' => 'nullable|string|max:50',
-            'id_type' => 'required|in:INE,Pasaporte,Licencia,Otro',
-            'id_number' => 'required|string|max:30',
-            'nationality' => 'nullable|string|max:50',
-        ]);
+        $validated = $request->validated();
 
         $client->update($validated);
         return redirect()->route('clients.index')->with('success', 'Cliente actualizado.');

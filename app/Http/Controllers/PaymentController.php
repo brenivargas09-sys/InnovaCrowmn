@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePaymentRequest;
+use App\Http\Requests\UpdatePaymentRequest;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\HistorialEstado;
@@ -32,16 +34,9 @@ class PaymentController extends Controller
         return view('payments.create', compact('reservations'));
     }
 
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
-        $validated = $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'amount' => 'required|numeric|min:0.01|max:999999.99',
-            'payment_method' => 'required|in:efectivo,tarjeta_credito,tarjeta_debito,transferencia',
-            'payment_date' => 'required|date|before_or_equal:today',
-            'reference_number' => 'nullable|string|max:50',
-            'notes' => 'nullable|string|max:500',
-        ]);
+        $validated = $request->validated();
 
         $validated['created_by'] = auth()->id();
         $payment = Payment::create($validated);
@@ -72,16 +67,9 @@ class PaymentController extends Controller
         return view('payments.edit', compact('payment', 'reservations'));
     }
 
-    public function update(Request $request, Payment $payment)
+    public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        $validated = $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'amount' => 'required|numeric|min:0.01',
-            'payment_method' => 'required|in:efectivo,tarjeta_credito,tarjeta_debito,transferencia',
-            'payment_date' => 'required|date|before_or_equal:today',
-            'reference_number' => 'nullable|string|max:50',
-            'notes' => 'nullable|string|max:500',
-        ]);
+        $validated = $request->validated();
 
         $payment->update($validated);
         return redirect()->route('payments.show', $payment)->with('success', 'Pago actualizado exitosamente.');
