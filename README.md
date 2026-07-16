@@ -1,14 +1,28 @@
-# InnovaCrown - Sistema de Gestión Hotelera
+# InnovaCrown - Sistema de Gestion Hotelera v1.0
 
-Sistema completo de gestión hotelera con página pública de presentación y panel administrativo modular. Desarrollado como proyecto académico con estándares industriales.
+Sistema web de gestion hotelera con pagina publica de presentacion y panel administrativo. Proyecto en desarrollo continuo, esta version 1.0 incluye la estructura base y funcionalidades principales.
 
-## Demo
+## Version actual: 1.0
 
-- **URL:** `http://localhost/InnovaCrown/public/`
+**Fecha:** Julio 2026
 
-## Tecnologías Utilizadas
+Esta primera version incluye:
+- Pagina publica del hotel con diseno responsive
+- Panel administrativo con gestion basica de modulos
+- Integracion con API de OpenWeather para clima en tiempo real
+- Sistema de autenticacion con 3 roles de usuario
 
-| Componente | Tecnología |
+### Funcionalidades planificadas para versiones futuras
+- Modulo de facturacion electronica
+- Integracion con pasarelas de pago
+- Sistema de notificaciones por correo y SMS
+- App movil para clientes
+- Reportes avanzados con exportacion a PDF y Excel
+- Modulo de mantenimiento preventivo de habitaciones
+
+## Tecnologias Utilizadas
+
+| Componente | Tecnologia |
 |---|---|
 | Backend | PHP 8.2+ / Laravel 12 |
 | Frontend | HTML5 / CSS3 / Bootstrap 5.3.3 |
@@ -18,42 +32,41 @@ Sistema completo de gestión hotelera con página pública de presentación y pa
 | Fuentes | Google Fonts (Playfair Display + Inter) |
 | Iconos | Bootstrap Icons 1.11.3 |
 
-## Funcionalidades
+## Funcionalidades de la version 1.0
 
-### Página Pública (Welcome)
-- Hero fullscreen con imagen de fondo y parallax
-- Sección de servicios, habitaciones y galería
+### Pagina Publica
+- Hero con imagen de fondo y efecto parallax
+- Seccion de servicios y habitaciones del hotel
+- Galeria de imagenes
 - Promociones activas
 - Widget de clima en tiempo real (OpenWeather API)
-- Información del hotel y contacto con mapa
-- Preloader animado con barra de progreso
-- Scroll reveal y contadores animados
-- Diseño responsive (mobile-first)
+- Informacion del hotel y contacto
+- Diseno responsive
 
-### Panel de Administración
-- **Dashboard** con estadísticas generales y widget de clima
-- **Gestión de Usuarios** - CRUD completo (crear, leer, actualizar, eliminar) con búsqueda y filtros por rol
-- **Gestión de Clientes** - CRUD completo con búsqueda por nombre, documento, teléfono
-- **Gestión de Habitaciones** - CRUD completo con búsqueda, filtros por estado, piso y tipo
-- **Tipos de Habitación** - CRUD con búsqueda y vista detallada
-- **Reservaciones** - CRUD completo con búsqueda y filtro por estado
-- **Pagos** - CRUD completo con búsqueda y filtro por método de pago
-- **Servicios** - CRUD completo con búsqueda
-- **Panel de Configuración** - Gestión de hero, información, galería, promociones
-- **Reportes** - Reportes de habitaciones, ingresos y reservaciones
-- **Check-in / Check-out** - Control de entrada y salida de huéspedes
-- **Historial** - Registro de actividad del sistema
+### Panel de Administracion
+- Dashboard con estadisticas generales y widget de clima
+- Gestion de Usuarios (CRUD) con busqueda y filtros
+- Gestion de Clientes (CRUD) con busqueda
+- Gestion de Habitaciones (CRUD) con busqueda y filtros por estado, piso y tipo
+- Gestion de Tipos de Habitacion (CRUD) con busqueda
+- Gestion de Reservaciones (CRUD) con busqueda y filtro por estado
+- Gestion de Pagos (CRUD) con busqueda y filtro por metodo
+- Gestion de Servicios (CRUD) con busqueda
+- Panel de configuracion (hero, informacion, galeria, promociones)
+- Reportes basicos de habitaciones, ingresos y reservaciones
+- Check-in / Check-out de huéspedes
+- Historial de actividad
 
 ### Roles de Usuario
 | Rol | Acceso |
 |---|---|
-| Admin | Panel completo + Configuración + Usuarios + Clima |
+| Admin | Panel completo + Configuracion + Usuarios + Clima |
 | Recepcionista | Habitaciones, Clientes, Reservaciones, Pagos, Servicios, Check-in/out, Reportes |
 | Cliente | Dashboard personal + Mis Reservaciones |
 
 ## Usuarios de Prueba
 
-| Usuario | Contraseña | Rol |
+| Usuario | Contrasena | Rol |
 |---|---|---|
 | admin@innovacrown.com | password | Administrador |
 | recepcion@innovacrown.com | password | Recepcionista |
@@ -68,13 +81,13 @@ Sistema completo de gestión hotelera con página pública de presentación y pa
 - XAMPP (o cualquier servidor Apache + MySQL)
 - Habilitar extensiones PHP: `openssl`, `pdo`, `mbstring`, `tokenizer`, `xml`, `curl`, `gd`
 
-## Instalación
+## Instalacion
 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/InnovaCrown.git
-cd InnovaCrown
+git clone https://github.com/brenivargas09-sys/InnovaCrowmn.git
+cd InnovaCrowmn
 ```
 
 ### 2. Instalar dependencias
@@ -112,7 +125,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-Esto creará las tablas y los usuarios de prueba mencionados arriba.
+Esto creara las tablas y los usuarios de prueba.
 
 ### 6. Crear enlace de almacenamiento
 
@@ -126,55 +139,63 @@ php artisan storage:link
 php artisan serve
 ```
 
-El sistema estará disponible en: `http://localhost:8000`
+El sistema estara disponible en: `http://localhost:8000`
 
-Si usa XAMPP, puede acceder directamente en: `http://localhost/InnovaCrown/public/`
+Si usa XAMPP, acceda directamente en: `http://localhost/InnovaCrown/public/`
 
 ## API del Clima (OpenWeather)
 
-El sistema integra la API de OpenWeather para mostrar el clima en tiempo real de la ubicación del hotel.
+Esta version integra la API de OpenWeather para mostrar el clima en tiempo real.
 
 1. Obtener una API Key gratuita en [https://openweathermap.org/api](https://openweathermap.org/api)
 2. Agregar la clave en el archivo `.env`:
    ```
    OPENWEATHER_API_KEY=tu_api_key_aqui
    ```
-3. Configurar la ubicación del hotel en Panel de Administración > Clima
+3. Configurar la ubicacion del hotel en Panel de Administracion > Clima
 
-La información del clima se actualiza automáticamente cada 30 minutos.
+La informacion del clima se actualiza cada 30 minutos.
 
 ## Estructura del Proyecto
 
 ```
-InnovaCrown/
+InnovaCrowmn/
 ├── app/
-│   ├── Http/Controllers/    # Controladores (Auth, Admin, Panel, API)
+│   ├── Http/Controllers/    # Controladores
 │   ├── Models/              # Modelos Eloquent
-│   └── Services/            # Servicios (WeatherService)
+│   └── Services/            # Servicios
 ├── database/
-│   ├── migrations/          # Migraciones de la base de datos
+│   ├── migrations/          # Migraciones de la BD
 │   └── seeders/             # Seeders de datos iniciales
-├── public/                  # Archivos públicos
+├── public/                  # Archivos publicos
 ├── resources/
 │   └── views/
 │       ├── auth/            # Vistas de login y registro
 │       ├── panel/           # Vistas del panel administrativo
-│       ├── layouts/         # Layout principal del panel
-│       └── welcome.blade.php # Página pública
+│       ├── layouts/         # Layout principal
+│       └── welcome.blade.php
 ├── routes/
-│   └── web.php              # Rutas de la aplicación
-└── .env.example             # Plantilla de configuración
+│   └── web.php              # Rutas de la aplicacion
+└── .env.example             # Plantilla de configuracion
 ```
 
-## Seguridad
+## Seguridad implementada en v1.0
 
-- Autenticación con hash de contraseñas (bcrypt)
-- Protección CSRF en formularios
-- Rate limiting en intentos de login (5 intentos / 15 minutos)
-- Middleware de autorización por rol en todas las rutas
-- Sanitización de entradas y prevención de inyección SQL
-- Sesiones seguras con regeneración de tokens
+- Autenticacion con hash de contrasenas (bcrypt)
+- Proteccion CSRF en formularios
+- Rate limiting en intentos de login
+- Middleware de autorizacion por rol
+- Sanitizacion de entradas
+
+## Proximo desarrollo (v2.0)
+
+- [ ] Facturacion electronica
+- [ ] Pasarela de pagos en linea
+- [ ] Notificaciones por correo
+- [ ] Reportes con exportacion a PDF
+- [ ] App movil para clientes
+- [ ] Mantenimiento preventivo de habitaciones
 
 ## Licencia
 
-Proyecto académico - InnovaCrown Hotel & Resort
+Proyecto academico - InnovaCrown Hotel & Resort
