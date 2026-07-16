@@ -1,0 +1,64 @@
+// InnovaCrowm Hotel Management Dashboard
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ── Sidebar toggle ──────────────────────────────────────────────
+    const toggleBtn = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('active');
+        });
+    }
+
+    // ── Delete confirmation ─────────────────────────────────────────
+    document.querySelectorAll('.btn-delete').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            if (!confirm('¿Estás seguro de eliminar este registro?')) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // ── Flash messages auto-dismiss ─────────────────────────────────
+    document.querySelectorAll('.alert').forEach(function (alert) {
+        setTimeout(function () {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(function () { alert.remove(); }, 500);
+        }, 5000);
+    });
+
+    // ── Room price calculator ───────────────────────────────────────
+    var roomSelect = document.getElementById('room_id');
+    var checkIn = document.getElementById('check_in_date');
+    var checkOut = document.getElementById('check_out_date');
+    var totalDisplay = document.getElementById('total_amount');
+
+    if (roomSelect && checkIn && checkOut && totalDisplay) {
+        function calculateTotal() {
+            var selected = roomSelect.options[roomSelect.selectedIndex];
+            var price = parseFloat(selected.getAttribute('data-price')) || 0;
+            var inDate = new Date(checkIn.value);
+            var outDate = new Date(checkOut.value);
+
+            if (checkIn.value && checkOut.value && outDate > inDate) {
+                var nights = Math.ceil((outDate - inDate) / (1000 * 60 * 60 * 24));
+                var total = nights * price;
+                totalDisplay.textContent = '$' + total.toFixed(2);
+            } else {
+                totalDisplay.textContent = '$0.00';
+            }
+        }
+
+        roomSelect.addEventListener('change', calculateTotal);
+        checkIn.addEventListener('change', calculateTotal);
+        checkOut.addEventListener('change', calculateTotal);
+    }
+
+});
+
+// ── Print receipt ───────────────────────────────────────────────────
+function printReceipt() {
+    window.print();
+}
